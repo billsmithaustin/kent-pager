@@ -61,17 +61,28 @@ Source: https://docs.m5stack.com/en/core/Cardputer-Adv (read 2026-11-22)
 
 | Cardputer pin | Connects to | Purpose |
 |---|---|---|
-| G13 (EXT 12, UART_TX) | modem RXD | serial to modem |
-| G15 (EXT 14, UART_RX) | modem TXD | serial from modem |
-| G4 (EXT 3) | modem RI | new-message alert; wakes ESP32 from deep sleep (RTC-capable pin) |
-| G5 (EXT 13) | modem PWRKEY | power the modem on/off or reset it (check breakout polarity) |
-| G6 (EXT 5) | modem DTR | modem sleep control |
+Updated for the **Waveshare SIM7670G Cat-1/GNSS HAT**, based on Claude's reading of its schematic (`SIM7670G_LTE_Cat-1-GNSS_HAT.pdf` on the Waveshare wiki, 2026-11-23):
+
+| Cardputer pin | HAT connection | Purpose |
+|---|---|---|
+| G15 (EXT 14, UART_RX) | **TXD** on 3-pin header H1 (or Pi header pin 10 via DIP switch) | serial from modem |
+| G13 (EXT 12, UART_TX) | **RXD** on H1 (or Pi header pin 8 via DIP switch) | serial to modem |
+| G5 (EXT 13) | **PWR** = Pi header pin 7 (BCM4), DIP switch "PWR" ON | **pulse HIGH** (~1 s) to toggle modem on/off |
+| G4 (EXT 3) | **RI** (3.3 V side of level shifter; *not* on the Pi header, so a wire must be soldered to a pad) | new-message wake |
+| G6 (EXT 5) | **DTR** (same as RI: solder to pad) | modem sleep control |
 | G1 (Grove) | MOSFET gate (via 1 kΩ) | vibration motor |
 | G2 (Grove) | spare | |
-| GND (EXT 4) | modem GND, modem battery −, motor circuit | common ground (required) |
+| GND | HAT GND (Pi header pin 6, or H1 GND) | common ground (required) |
+| — | HAT **5 V** in (Pi header pin 2/4, or USB-C) | modem power |
 
-- The modem's 2 A transmit peaks are too large to trust to the undocumented 5 V outputs. Keep a **separate LiPo plus charger module** (e.g. TP4056) for the modem, with grounds tied together. Power the vibration motor from the same battery.
-- **Level check:** the A7670 uses 1.8 V logic. The breakout must have 3.3 V level shifting, or add a level shifter.
+What the schematic shows:
+- **Level shifting is built in.** A TXB0104 shifts TXD, RXD, RI and DTR between the module's 1.8 V and 3.3 V. With the TXB0104 (auto-direction, weak drive), don't add strong pull-ups on these lines.
+- **Power control:** PWR → diode → NPN transistor that pulls the module's PWRKEY low, so a HIGH pulse from the ESP32 equals pressing the power key. There's also an onboard PWR_KEY button and what looks like an automatic power-on pulse circuit (this matches the wiki's description of auto-start).
+- **The HAT needs 5 V.** It makes the module's ~3.8 V supply from 5 V with a 3 A LDO (SPX29302). A bare 3.7 V LiPo can't power it directly: the modem battery needs a 5 V boost board (e.g. Adafruit PowerBoost 1000C, which also charges). The LDO and the board's USB hub/LEDs waste some battery.
+- Its **3-pin header H1 (TXD/GND/RXD)** is the easiest serial connection.
+- RI/DTR pads and the exact DIP routing should be checked on the physical board.
+- **Size 85 × 56.7 mm**, slightly larger than the Cardputer (84 × 54 mm).
+- The HAT is a good fit for the **prototype**. For the final three, a smaller SIM7670G board without the USB hub would give better battery life and size.
 - I2C (G8/G9) is exposed on EXT, so a DRV2605L haptic driver could share that bus if wanted.
 
 ## Pitfalls
@@ -106,6 +117,28 @@ Use Arduino or PlatformIO on the ESP32-S3 with the `M5Cardputer` library, and ta
 **Modem bands:** the modem must support LTE bands **2, 4, 12 and 66**, and ideally **71** (T-Mobile's rural low band). Check the band list on the exact module's datasheet before buying.
 - Some A7670 variants (A7670SA) leave out band 12, which hurts coverage in fringe areas. A7670G is listed with band 12, but confirm this on its datasheet.
 - A more expensive, US-certified option: Quectel EC21-A / EG21-G or SIMCom SIM7600A-H.
+
+**Modem board choice (web search, 2026-11-23):**
+- **A7670 is out for the US.** Makerfabs states the A7670 isn't registered in the USA and recommends SIM7600 instead. The A7670E variants also lack band 12.
+- **Recommended: Waveshare SIM7670G LTE Cat-1 HAT**, ~$44 at waveshare.com (one guide reported ~$60 and low stock, so check the live price). Global bands include B2/B4/B12/B13/B66 (listed for Waveshare's ESP32-S3-SIM7670G board; confirm on the HAT page). It's a Raspberry Pi HAT, but it works with any 3.3 V UART and has USB for desk testing. At about 65 × 56 mm, it's roughly the Cardputer's footprint. SIM7670G's US carrier approval is still unverified.
+- **Fallback: SIM7600A-H** (US-specific, B2/B4/B12, Cat-4). The Waveshare HAT ($69.99) is discontinued; eBay copies run ~$40–60. It draws more power.
+- The pin map's A7670 references now apply to the SIM7670G. Its pin names are similar, but check its own docs.
+
+**US certification of the modems considered (web search, 2026-11-23; sources partly old or conflicting):**
+
+| Module | FCC | PTCRB | US carriers |
+|---|---|---|---|
+| **SIM7670G** (Waveshare HAT) | Yes, FCC ID 2AJYU-8XS0002 (2023) | Yes | AT&T, T-Mobile (Verizon was pending, per a ~2-year-old SIMCom post) |
+| SIM7600A-H | Yes | Yes | AT&T only confirmed; T-Mobile/Verizon unclear |
+| SIM7600NA-H (a different variant) | Yes | Yes | AT&T, T-Mobile, Verizon, US Cellular |
+| Quectel EC21-A | Yes | Yes | AT&T, T-Mobile |
+| Quectel EG21-G | Yes | Yes | AT&T, T-Mobile, Verizon (sources mixed) |
+| A7670 family (E/G/SA) | Claimed for SA variants, conflicting | None found | None found; Makerfabs says not registered for US |
+
+- FCC = legal to transmit in the US. PTCRB = industry certification the carriers expect. Carrier approval = tested on that network.
+- **SIM7670G is certified for T-Mobile**, which supports the Tello plan.
+- Certification covers the module; a hobby breakout or HAT isn't separately certified, which is normal for prototypes.
+- **PTCRB confirmed (2026-11-23):** the user checked ptcrb.com/certified-devices. SIM7670G is listed, with a most recent certification date of **06/26/2026**. (Claude couldn't reach the database directly: it renders with JavaScript and blocks automated requests.)
 
 **Plan:** a talk-and-text plan, or the cheapest plan available, since the device needs no data. Candidates (prices change, so check current offers):
 - **Tello**: cheap custom plans, pay monthly
