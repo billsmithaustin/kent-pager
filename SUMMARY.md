@@ -25,6 +25,8 @@ For three units, assemble off-the-shelf modules instead of designing a custom PC
 | SIM | Prepaid plan with a real phone number (see below) | varies |
 | Enclosure | 3D-printed case that clips the modem board to the back of the Cardputer | – |
 
+**Sourcing constraint:** no AliExpress purchases. The prices above are rough estimates from memory, not checked against any store, and some (the A7670 breakout, coin motor, transistor, TP4056) reflect AliExpress-level pricing. Buy from the M5Stack official store, Digi-Key, Mouser, Adafruit, SparkFun, or the official Waveshare/LilyGO storefronts on Amazon, and expect higher prices there. Prices still need checking.
+
 ### Why LTE Cat-1
 
 - 2G and 3G are shut down in the US and much of Europe.
@@ -112,9 +114,19 @@ Use Arduino or PlatformIO on the ESP32-S3 with the `M5Cardputer` library, and ta
 - **Mint Mobile**: cheapest when you prepay 12 months
 - Confirm the plan doesn't expire after a period of inactivity.
 
+**Leading choice: Tello, $5/month** (found by the user, not checked by Claude). At https://tello.com/buy/custom_plans, choose "No data" and "300 minutes". Tello runs on T-Mobile.
+- Order a **physical SIM**. An eSIM can't be moved into the modem.
+- Confirm texts are unlimited (or enough) on that plan, check taxes and fees, and set up auto-renew so the number isn't lost.
+- Three devices means 3 × $5 = $15/month plus taxes.
+
+**How tolerant T-Mobile is (Claude's general knowledge, unverified):**
+- T-Mobile generally doesn't keep an approved-device list the way Verizon does. Any module with a valid IMEI and FCC certification usually connects.
+- The main risk is **SMS on an LTE-only network**. Texts go either over the older fallback path or over IMS (the system behind VoLTE), and that depends on the module's firmware and the carrier's settings. Most hobby reports say A7670/SIM7600-class modules text fine on T-Mobile, but it isn't guaranteed. Voice calls are more likely to fail, but the device doesn't need them.
+- Tello's terms of service may say the plan is for phones. Check them.
+
 **Activation:** if the carrier's online IMEI check rejects the modem, activate the SIM in an ordinary unlocked phone first, then move it to the device. Do not change the modem's IMEI.
 
-**Test:** with one SIM in one prototype, check `AT+CREG?` / `AT+CEREG?` (registration), `AT+CSQ` (signal), then send and receive a text before buying the other two SIMs.
+**Test (cheapest first step):** a USB adapter board for the modem plus a serial terminal on a computer is enough to prove SMS works before building anything else. With one SIM in one prototype, check `AT+CREG?` / `AT+CEREG?` (registration), `AT+CSQ` (signal), then send and receive a text before buying the other two SIMs.
 
 ## Open items / next steps
 
