@@ -9,6 +9,7 @@
   - [Parts list](#parts-list)
   - [Why LTE Cat-1](#why-lte-cat-1)
   - [Vibration alert (added requirement)](#vibration-alert-added-requirement)
+  - [Enclosure (added requirement)](#enclosure-added-requirement)
 - [Cardputer ADV facts and pin map](#cardputer-adv-facts-and-pin-map)
   - [Planned wiring](#planned-wiring)
 - [Pitfalls](#pitfalls)
@@ -44,7 +45,8 @@ Current choices (updated 2026-11-23). Roughly **$115–145 per unit** plus the S
 | Motor driver parts | AO3400 MOSFET (or 2N7000), 1N4148/1N5819 diode, 1 kΩ resistor | ~$2 | Digi-Key, Mouser |
 | Cables | Grove-to-jumper cable (motor), jumper wires to the EXT header, wire for RI/DTR pads | ~$5 | M5Stack, Seeed, Adafruit |
 | SIM | **Tello** physical SIM, "No data / 300 minutes" plan | $5/month | tello.com |
-| Enclosure | 3D-printed case holding the Cardputer, HAT and battery | – | – |
+| Charging socket | USB-C panel-mount socket or breakout for the case wall (see [Enclosure](#enclosure-added-requirement)) | ~$3–5 | Adafruit |
+| Enclosure | 3D-printed sled behind the Cardputer, keyboard exposed | – | – |
 
 **Sourcing constraint:** no AliExpress purchases. Buy from the M5Stack official store, Digi-Key, Mouser, Adafruit, SparkFun, Waveshare's own store, or official storefronts on Amazon.
 
@@ -66,6 +68,22 @@ The device should vibrate when a message arrives.
   - Alternative: a DRV2605L haptic driver board (~$8, I2C) gives ready-made vibration patterns, but it needs I2C pins.
 - **Pin:** G1 on the Grove port (see the pin map below).
 - **Firmware:** on `+CMTI`, pulse the motor (for example two 300 ms buzzes with a 200 ms gap) and add an on/off setting for vibration.
+
+### Enclosure (added requirement)
+
+Requirements: **expose the keyboard**, and provide **a socket for plugging in power**.
+
+**Layout:** a 3D-printed "sled" behind the Cardputer, open on the front so the keyboard and screen stay exposed, holding the HAT, modem battery, 5 V boost board and antenna behind it.
+- Draft outer size: **3.54 × 2.42 × 2.06 in (89.8 × 61.5 × 52.2 mm)**. This is an estimate: measure the real parts, especially the HAT's height with the antenna connectors and USB ports.
+- **Drawings (draft, 2026-11-23):** `enclosure/enclosure_drawings.png` (or `.svg`) shows top, front, both end views and a lengthwise section with dimensions. `enclosure/enclosure_3d.png` and `enclosure_3d_with_parts.png` are 3D pictures. They're generated from `enclosure/enclosure.scad`, which holds every dimension as an editable value.
+- One-piece open-top tray: electronics go in from the top, and the Cardputer drops in last (friction fit) and acts as the lid.
+- Mount the LTE antenna along a side wall, away from the battery. The GNSS antenna isn't needed.
+
+**Power socket: one USB-C panel-mount socket** (e.g. a USB-C breakout or panel-mount jack from Adafruit) in the case wall, wired to the 5 V boost/charger board's input to charge the modem battery.
+- The Cardputer has its own battery and its own USB-C port. Leave that port reachable through a cutout, because it's also needed for firmware updates.
+- **Possible one-cable charging:** the Cardputer's EXT header has a **5VIN** pin. If 5VIN charges its internal battery (not yet verified), the same socket could feed both. Until that's confirmed, plan on two ports: the new socket for the modem side, and the Cardputer's own USB-C.
+
+**Other openings:** the Cardputer power switch, a removable panel or slot for the SIM (the HAT's SIM slot isn't hot-swappable, so power off first), an optional speaker grille, and a lanyard hole if wanted.
 
 ## Cardputer ADV facts and pin map
 
