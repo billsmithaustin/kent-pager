@@ -2,6 +2,21 @@
 
 *Conversation date: 2026-11-22*
 
+## Contents
+
+- [Goal](#goal)
+- [Recommended approach](#recommended-approach)
+  - [Parts list](#parts-list)
+  - [Why LTE Cat-1](#why-lte-cat-1)
+  - [Vibration alert (added requirement)](#vibration-alert-added-requirement)
+- [Cardputer ADV facts and pin map](#cardputer-adv-facts-and-pin-map)
+  - [Planned wiring](#planned-wiring)
+- [Pitfalls](#pitfalls)
+- [Firmware outline](#firmware-outline)
+- [Alternatives considered](#alternatives-considered)
+- [Decision: US only, low-cost carrier](#decision-us-only-low-cost-carrier)
+- [Open items / next steps](#open-items--next-steps)
+
 ## Goal
 
 A small, battery-powered, portable device that can send, receive and display SMS messages over a cellular network.
@@ -14,7 +29,9 @@ A small, battery-powered, portable device that can send, receive and display SMS
 
 For three units, assemble off-the-shelf modules instead of designing a custom PCB. Use an ESP32 handheld that already has a keyboard, screen and battery, add an LTE modem, and write about 500–1000 lines of firmware.
 
-### Parts list (per unit, roughly $70–100)
+### Parts list
+
+Roughly $70–100 per unit at the original estimates (expect ~$90–130 at US retail; see the sourcing note below).
 
 | Part | Suggestion | Approx. cost |
 |---|---|---|
