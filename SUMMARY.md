@@ -133,10 +133,12 @@ Use Arduino or PlatformIO on the ESP32-S3 with the `M5Cardputer` library, and ta
 | SIM7600NA-H (a different variant) | Yes | Yes | AT&T, T-Mobile, Verizon, US Cellular |
 | Quectel EC21-A | Yes | Yes | AT&T, T-Mobile |
 | Quectel EG21-G | Yes | Yes | AT&T, T-Mobile, Verizon (sources mixed) |
-| A7670 family (E/G/SA) | Claimed for SA variants, conflicting | None found | None found; Makerfabs says not registered for US |
+| **A7670G** | Not checked | **Yes, certified 03/31/2026**, vendor SIMCom Wireless Solutions Limited (user checked ptcrb.com, 2026-11-23) | Not found; T-Mobile approval unknown |
+| A7670E / A7670SA | Claimed for SA, conflicting | None found | None found. A7670E lacks US bands; Makerfabs's "not registered in US" note is probably outdated, at least for the G variant |
 
 - FCC = legal to transmit in the US. PTCRB = industry certification the carriers expect. Carrier approval = tested on that network.
 - **SIM7670G is certified for T-Mobile**, which supports the Tello plan.
+- **A7670G is back in consideration** after its PTCRB listing. It stays second choice because T-Mobile approval is unconfirmed and its band list (including B12) hasn't been checked against a datasheet. Its main value is as an option for a smaller final board. The SIM7670G HAT remains the choice for the prototype.
 - Certification covers the module; a hobby breakout or HAT isn't separately certified, which is normal for prototypes.
 - **PTCRB confirmed (2026-11-23):** the user checked ptcrb.com/certified-devices. SIM7670G is listed, with a most recent certification date of **06/26/2026**. (Claude couldn't reach the database directly: it renders with JavaScript and blocks automated requests.)
 
