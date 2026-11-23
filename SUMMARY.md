@@ -31,18 +31,24 @@ For three units, assemble off-the-shelf modules instead of designing a custom PC
 
 ### Parts list
 
-Roughly $70–100 per unit at the original estimates (expect ~$90–130 at US retail; see the sourcing note below).
+Current choices (updated 2026-11-23). Roughly **$115–145 per unit** plus the SIM plan. Only the modem price was checked (waveshare.com); the rest are estimates.
 
-| Part | Suggestion | Approx. cost |
-|---|---|---|
-| Controller, keyboard, screen | **M5Stack Cardputer (ADV)**: ESP32-S3, full QWERTY keyboard, 1.14" color LCD, LiPo charging over USB-C, Grove UART port | ~$30–40 |
-| Cellular modem | **SIMCom A7670 breakout (LTE Cat-1)**: A7670SA/A7672SA for the Americas, A7670E for Europe (Waveshare or LilyGO) | ~$20–35 |
-| Antenna | LTE antenna with a u.FL connector (flexible adhesive type fits inside a case) | ~$5 |
-| Modem power | Separate 1000–2000 mAh LiPo, or the main battery plus a 1000 µF+ low-ESR capacitor at the modem's power input | ~$10 |
-| SIM | Prepaid plan with a real phone number (see below) | varies |
-| Enclosure | 3D-printed case that clips the modem board to the back of the Cardputer | – |
+| Part | Choice | Approx. cost | Source |
+|---|---|---|---|
+| Controller, keyboard, screen | **M5Stack Cardputer ADV**: ESP32-S3, QWERTY keyboard, 1.14" LCD, 1500 mAh battery, 8 MB flash, microSD | ~$30–40 | M5Stack store, Digi-Key, Mouser |
+| Cellular modem | **Waveshare SIM7670G LTE Cat-1/GNSS HAT** (FCC, PTCRB 06/26/2026, reported T-Mobile approval) | $44.99 (checked) | waveshare.com, Amazon |
+| LTE antenna | Check whether the HAT ships with one; if not, an LTE antenna with the HAT's connector (IPEX1/u.FL or SMA) | ~$5–10 | Adafruit, Digi-Key, Waveshare |
+| Modem power | **5 V boost/charger board** (e.g. Adafruit PowerBoost 1000C), since the HAT needs 5 V | ~$20 | Adafruit |
+| Modem battery | 1200–2500 mAh LiPo with JST connector | ~$10–15 | Adafruit, SparkFun |
+| Vibration motor | 10 mm coin vibration motor | ~$2 | Adafruit, SparkFun |
+| Motor driver parts | AO3400 MOSFET (or 2N7000), 1N4148/1N5819 diode, 1 kΩ resistor | ~$2 | Digi-Key, Mouser |
+| Cables | Grove-to-jumper cable (motor), jumper wires to the EXT header, wire for RI/DTR pads | ~$5 | M5Stack, Seeed, Adafruit |
+| SIM | **Tello** physical SIM, "No data / 300 minutes" plan | $5/month | tello.com |
+| Enclosure | 3D-printed case holding the Cardputer, HAT and battery | – | – |
 
-**Sourcing constraint:** no AliExpress purchases. The prices above are rough estimates from memory, not checked against any store, and some (the A7670 breakout, coin motor, transistor, TP4056) reflect AliExpress-level pricing. Buy from the M5Stack official store, Digi-Key, Mouser, Adafruit, SparkFun, or the official Waveshare/LilyGO storefronts on Amazon, and expect higher prices there. Prices still need checking.
+**Sourcing constraint:** no AliExpress purchases. Buy from the M5Stack official store, Digi-Key, Mouser, Adafruit, SparkFun, Waveshare's own store, or official storefronts on Amazon.
+
+**Possible change for the final three units:** a smaller board without the HAT's USB hub (another SIM7670G board, or an A7670G board, which is now PTCRB-certified) would save space and battery. See [Decision: US only, low-cost carrier](#decision-us-only-low-cost-carrier).
 
 ### Why LTE Cat-1
 
@@ -104,7 +110,7 @@ What the schematic shows:
 
 ## Pitfalls
 
-1. **Current spikes.** LTE modems draw up to about 2 A in short bursts when transmitting. The Cardputer's Grove 5 V line can't supply that, so the modem browns out and resets, usually while sending. Give the modem its own LiPo or a solid regulator with a large capacitor.
+1. **Current spikes.** LTE modems draw up to about 2 A in short bursts when transmitting. The Cardputer's Grove 5 V line can't supply that, so the modem browns out and resets, usually while sending. Give the modem its own LiPo. With the Waveshare HAT, that means a LiPo plus a 5 V boost board (see [Parts list](#parts-list)).
 2. **Carrier and SIM.**
    - Many IoT SIMs (Hologram, 1NCE, Soracom) only send SMS through their web API or have no regular phone number. Avoid them.
    - Prepaid consumer plans with SMS work better. In the US, T-Mobile-based prepaid plans tend to accept uncertified modules. Verizon often blocks devices whose IMEI isn't on its approved list. AT&T is somewhere in between.
@@ -124,7 +130,7 @@ Use Arduino or PlatformIO on the ESP32-S3 with the `M5Cardputer` library, and ta
 
 ## Alternatives considered
 
-- **LilyGO T-Deck** (2.8" screen, BlackBerry-style keyboard, trackball) with the same A7670 breakout. It's bigger, but the larger screen makes reading easier.
+- **LilyGO T-Deck** (2.8" screen, BlackBerry-style keyboard, trackball) with the same modem board. It's bigger, but the larger screen makes reading easier.
 - **A basic 4G feature phone** (~$30), if building the device isn't the point.
 
 ## Decision: US only, low-cost carrier
@@ -136,10 +142,10 @@ Use Arduino or PlatformIO on the ESP32-S3 with the `M5Cardputer` library, and ta
 - A more expensive, US-certified option: Quectel EC21-A / EG21-G or SIMCom SIM7600A-H.
 
 **Modem board choice (web search, 2026-11-23):**
-- **A7670 is out for the US.** Makerfabs states the A7670 isn't registered in the USA and recommends SIM7600 instead. The A7670E variants also lack band 12.
+- **A7670 was initially ruled out for the US.** Makerfabs states the A7670 isn't registered in the USA, and the A7670E variants lack band 12. *Later update:* the A7670G is PTCRB-certified (see the certification table below).
 - **Recommended: Waveshare SIM7670G LTE Cat-1 HAT**, ~$44 at waveshare.com (one guide reported ~$60 and low stock, so check the live price). Global bands include B2/B4/B12/B13/B66 (listed for Waveshare's ESP32-S3-SIM7670G board; confirm on the HAT page). It's a Raspberry Pi HAT, but it works with any 3.3 V UART and has USB for desk testing. At about 65 × 56 mm, it's roughly the Cardputer's footprint. SIM7670G's US carrier approval is still unverified.
 - **Fallback: SIM7600A-H** (US-specific, B2/B4/B12, Cat-4). The Waveshare HAT ($69.99) is discontinued; eBay copies run ~$40–60. It draws more power.
-- The pin map's A7670 references now apply to the SIM7670G. Its pin names are similar, but check its own docs.
+- The planned wiring has been updated for the SIM7670G HAT (see [Planned wiring](#planned-wiring)).
 
 **US certification of the modems considered (web search, 2026-11-23; sources partly old or conflicting):**
 
