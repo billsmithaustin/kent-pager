@@ -10,6 +10,8 @@
   - [Why LTE Cat-1](#why-lte-cat-1)
   - [Vibration alert (added requirement)](#vibration-alert-added-requirement)
   - [Enclosure (added requirement)](#enclosure-added-requirement)
+  - [Slim belt-clip version (final units)](#slim-belt-clip-version-final-units)
+  - [Unit CatM belt-clip version (alternate)](#unit-catm-belt-clip-version-alternate)
 - [Cardputer ADV facts and pin map](#cardputer-adv-facts-and-pin-map)
   - [Planned wiring](#planned-wiring)
 - [Pitfalls](#pitfalls)
@@ -73,10 +75,13 @@ The device should vibrate when a message arrives.
 
 Requirements: **expose the keyboard**, and provide **a socket for plugging in power**.
 
+The layout below is for the **prototype** (Waveshare HAT). For the three finished units, see [Slim belt-clip version](#slim-belt-clip-version-final-units).
+
 **Layout:** a 3D-printed "sled" behind the Cardputer, open on the front so the keyboard and screen stay exposed, holding the HAT, modem battery, 5 V boost board and antenna behind it.
 - Draft outer size: **3.54 × 2.42 × 2.06 in (89.8 × 61.5 × 52.2 mm)**. This is an estimate: measure the real parts, especially the HAT's height with the antenna connectors and USB ports.
 - **Drawings (draft, 2026-11-23):** `enclosure/enclosure_drawings.png` (or `.svg`) shows top, front, both end views and a lengthwise section with dimensions. `enclosure/enclosure_3d.png` and `enclosure_3d_with_parts.png` are 3D pictures. They're generated from `enclosure/enclosure.scad`, which holds every dimension as an editable value.
 - One-piece open-top tray: electronics go in from the top, and the Cardputer drops in last (friction fit) and acts as the lid.
+- **Printing:** a Purdue student will print it at the Bechtel Innovation Design Center (BIDC). There's 25 g/week of free PLA, and you can bring your own filament. The full enclosure is ~35–45 g, so bring PETG. The BIDC's listed Lulzbot printers use **2.85 mm** filament (confirm with the BIDC first). Do a quick fit test with free PLA first. Confirm current rules at BechtelIDC@purdue.edu.
 - Mount the LTE antenna along a side wall, away from the battery. The GNSS antenna isn't needed.
 
 **Power socket: one USB-C panel-mount socket** (e.g. a USB-C breakout or panel-mount jack from Adafruit) in the case wall, wired to the 5 V boost/charger board's input to charge the modem battery.
@@ -84,6 +89,35 @@ Requirements: **expose the keyboard**, and provide **a socket for plugging in po
 - **Possible one-cable charging:** the Cardputer's EXT header has a **5VIN** pin. If 5VIN charges its internal battery (not yet verified), the same socket could feed both. Until that's confirmed, plan on two ports: the new socket for the modem side, and the Cardputer's own USB-C.
 
 **Other openings:** the Cardputer power switch, a removable panel or slot for the SIM (the HAT's SIM slot isn't hot-swappable, so power off first), an optional speaker grille, and a lanyard hole if wanted.
+
+### Slim belt-clip version (final units)
+
+**Requirement (confirmed 2026-11-24):** pager-like size, clipping onto a belt. The Cardputer (3.31 × 2.13 in) sets the minimum footprint, so the target is "old keyboard pager" size (e.g. BlackBerry 950, roughly 3.5 × 2.5 × 1 in from memory), not a small numeric pager.
+
+**Compact modem search (2026-11-24):** no ideal off-the-shelf board from a US-friendly seller was found.
+- **Chosen for the draft: DFRobot Gravity A7670G (TEL0163)**, $45 at dfrobot.com, 60 × 52 mm, 13.4 mm tall overall (from DFRobot's dimension drawing).
+  - It includes an LTE antenna and a 3.3–5 V UART, and its bands include B2/B4/B12/B66 (no B71). The A7670G is PTCRB-certified (03/31/2026); T-Mobile approval is unknown.
+  - **Drawbacks:** it needs **5 V** (5–12 V terminal or USB-C), so the 5 V boost board stays. Its pages show **no PWRKEY, RI or DTR**, so there's no wake-on-message from deep sleep. The firmware must keep the ESP32 in light sleep, listening on the UART (shorter battery life), and the modem is power-cycled via the boost board's enable pin. The SIM isn't reachable from outside, so fit it before assembly.
+  - Remove its screw terminal block (the tallest part) to save ~3 mm.
+- Rejected: LilyGO T-SIM7670G-S3 (sold out, no board dimensions, includes a redundant ESP32); Waveshare ESP32-S3-SIM7670G (110 mm long). Generic compact A7670 core boards came only from marketplace listings.
+- **For ~1.2 in thick:** a small custom carrier PCB for the bare 24 × 24 mm SIM7670G/A7670G module, with level shifting, powered directly from the LiPo and with the battery beside it. That's more work, but it's the only way to reach that thickness.
+
+**Draft size with the DFRobot board:** 3.50 × 2.31 × 1.59 in (88.8 × 58.8 × 40.4 mm), **about 1.83 in thick with the belt clip**. Layout: the LiPo (~1000 mAh, 50 × 34 × 5 mm) sits under the modem board, the 5 V boost board sits beside it, and the Cardputer rests on a 2 mm ledge on top. The belt clip is a store-bought pager/phone clip screwed through the floor, or a printed PETG clip.
+
+**Drawings:** `enclosure/enclosure_slim_drawings.png` (and `.svg`).
+
+### Unit CatM belt-clip version (alternate)
+
+An alternate pager layout built around the **M5Stack Unit CatM** (U128, SIM7080G, LTE-M; see [Alternatives considered](#alternatives-considered)). Drawings: `enclosure/enclosure_catm_drawings.png` and `.svg` (draft, 2026-11-24).
+
+- **Size:** 88.8 × 58.8 × 31.6 mm (**3.50 × 2.31 × 1.24 in**), about **1.48 in with the belt clip**. That's 0.35 in thinner than the DFRobot slim version.
+- **Layout:** the 72 × 24 × 8 mm unit lies flat in a 9 mm bay under the Cardputer, against the back wall, held by a printed rail and foam tape. The vibration motor and its driver board sit in the front of the bay. The Cardputer rests on a 2 mm ledge above.
+- **No second battery, boost board or separate charging socket.** The unit is powered from the Cardputer's EXT header (5VOUT, GND; data on G15/G13) through a cut Grove cable. Charging is through the Cardputer's own USB-C, exposed on the right end. Still to verify: that 5VOUT can supply the modem's transmit peaks.
+- **Antenna:** the supplied SMA antenna screws on through a Ø7 hole in the left end and sticks out. A tidier option is an SMA-to-u.FL pigtail and a stick-on flexible LTE antenna inside the bay, with no hole.
+- **SIM access:** lift the Cardputer out (finger notches) to reach the unit's nano SIM slot.
+- **Wiring changes:** the HAT's PWR, RI and DTR lines aren't used. The motor moves to EXT pin G5.
+- **Depends on** the Unit CatM passing the Tello desk test on LTE-M.
+- **Variant with M5Stack Unit Vibrator** (U059, 32 × 24 × 8 mm, driver built in, about 420 mA at 50% duty, 5 V): `enclosure/enclosure_catm_vib_drawings.png` and `.svg`. It replaces the coin motor and hand-built driver, sits in the front of the bay with a 3 mm clear zone for its spinning weight, and is wired to EXT 5VOUT, GND and G5. Same case size. The rail is shortened to clear it.
 
 ## Cardputer ADV facts and pin map
 
@@ -150,6 +184,11 @@ Use Arduino or PlatformIO on the ESP32-S3 with the `M5Cardputer` library, and ta
 
 - **LilyGO T-Deck** (2.8" screen, BlackBerry-style keyboard, trackball) with the same modem board. It's bigger, but the larger screen makes reading easier.
 - **A basic 4G feature phone** (~$30), if building the device isn't the point.
+- **Particle cellular boards** (checked 2026-11-24): not a good fit. Particle's built-in SIM doesn't support SMS, and Particle staff say direct SMS through the modem is unofficial and not recommended. Only the Boron (BRN404X, LTE-M) has a slot for a third-party SIM, and Particle advises against using one. The B-SoM, M-SoM, Muon and Tracker use an embedded SIM. Their US models are LTE-M (SMS is less reliable there), and the US Cat-1 model (B504) needs a custom carrier board. Particle also expects its cloud service, which this project doesn't need.
+- **M5Stack cellular units** (checked 2026-11-24): the Cat-1 units (Unit Cat1-CN, COMX Cat1, Stamp Cat1, Atom DTU Cat1) use Chinese bands only, so they won't work in the US. **Unit CatM (U128, SIM7080G, LTE-M/NB-IoT), about $37**, is a real candidate for the slim version:
+  - Size 72 × 24 × 8 mm. It plugs into the Cardputer's Grove port (UART plus 5 V). M5Stack lists 249 mA peak, so it may run from the Cardputer's own battery with no second battery or boost board. Not yet verified.
+  - LTE-M bands B2/B4/B12/B13/B66 (B71 on NB-IoT only). Listed certifications include FCC, PTCRB, AT&T, T-Mobile and Verizon. Nano SIM slot; SMA antenna included.
+  - Risks: LTE-M rather than Cat-1 (coverage, and whether Tello's SIM is allowed on LTE-M and gets SMS there is unknown); 2020-era documentation; the motor would move from G1 to an EXT pin. Desk-test it with the Tello SIM before designing around it.
 
 ## Decision: US only, low-cost carrier
 
