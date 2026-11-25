@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1560" height="1000" viewBox="0 0 1560 1000" font-family="Helvetica, Arial, sans-serif">
+<defs>
+<marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#1f4e8c"/></marker>
+<pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#d9dee6"/><line x1="0" y1="0" x2="0" y2="8" stroke="#7a8599" stroke-width="1.5"/></pattern>
+<style>
+.o{fill:none;stroke:#222;stroke-width:2} .h2{fill:none;stroke:#555;stroke-width:1.3;stroke-dasharray:7 5}
+.e{stroke:#1f4e8c;stroke-width:0.8} .d{stroke:#1f4e8c;stroke-width:1;marker-start:url(#ar);marker-end:url(#ar)}
+.ld{stroke:#444;stroke-width:0.9} .dot{fill:#444} .cut{fill:#fff;stroke:#c0392b;stroke-width:2}
+.notch{fill:#fff;stroke:#222;stroke-width:1.5} .part{fill:#eceff3;stroke:#666;stroke-width:1;stroke-dasharray:4 3}
+.sec{fill:url(#hatch);stroke:#222;stroke-width:1.5} .void{fill:#fff;stroke:none}
+.pcb{fill:#2e8b57;stroke:#1d5e3a} .comp{fill:#bfe3cc;stroke:#2e8b57;stroke-dasharray:4 3}
+.modem{fill:#e3f3e8;stroke:#2e8b57;stroke-width:1.2;stroke-dasharray:6 4} .post{fill:#fff;stroke:#222;stroke-width:1.5}
+.batt{fill:#f5c58a;stroke:#b5762b} .boost{fill:#a9c4f0;stroke:#3a63a8} .clip{fill:#9aa3ad;stroke:#333;stroke-width:1.2}
+.t{font-size:13px} .h{font-size:16px;font-weight:bold} .dt{font-size:12px;fill:#1f4e8c}
+.lt{font-size:12px;fill:#222} .pl{font-size:11px;fill:#222;text-anchor:middle} .note{font-size:13px;fill:#333}
+</style></defs>
+<rect width="1560" height="1000" fill="#fff"/>
+<text x="70" y="40" font-size="22" font-weight="bold">Kent Pager — Slim Belt-Clip Enclosure (draft)</text>
+<text x="1490" y="40" font-size="13" text-anchor="end" fill="#555">Scale 4 px = 1 mm · 2026-11-24</text>
+<text x="247.6" y="100.0" class="h" text-anchor="middle">TOP VIEW (Cardputer removed)</text>
+<rect x="70.0" y="140.0" width="355.2" height="235.2" rx="12" class="o"/>
+<rect x="78.0" y="148.0" width="339.2" height="219.2" rx="0" class="o"/>
+<rect x="86.0" y="156.0" width="323.2" height="203.2" rx="0" class="o"/>
+<rect x="175.6" y="153.6" width="240.0" height="208.0" rx="0" class="modem"/>
+<text x="295.6" y="257.6" class="pl" text-anchor="middle">A7670G board 60 × 52</text>
+<text x="295.6" y="272.6" class="pl" text-anchor="middle">(battery underneath)</text>
+<rect x="79.6" y="185.2" width="91.6" height="144.8" rx="0" class="boost"/>
+<text x="125.4" y="261.6" class="pl" text-anchor="middle">5 V boost</text>
+<circle cx="401.2" cy="347.6" r="12.0" class="post"/>
+<circle cx="401.2" cy="167.6" r="12.0" class="post"/>
+<rect x="211.6" y="371.2" width="72.0" height="8.0" rx="0" class="notch"/>
+<rect x="211.6" y="136.0" width="72.0" height="8.0" rx="0" class="notch"/>
+<line x1="70.0" y1="375.2" x2="70.0" y2="407.2" class="e"/>
+<line x1="425.2" y1="375.2" x2="425.2" y2="407.2" class="e"/>
+<line x1="70.0" y1="403.2" x2="425.2" y2="403.2" class="d"/>
+<text x="247.6" y="398.2" class="dt" text-anchor="middle">88.8 mm (3.50 in)</text>
+<line x1="70.0" y1="140.0" x2="38.0" y2="140.0" class="e"/>
+<line x1="70.0" y1="375.2" x2="38.0" y2="375.2" class="e"/>
+<line x1="42.0" y1="140.0" x2="42.0" y2="375.2" class="d"/>
+<text x="36.0" y="257.6" class="dt" text-anchor="middle" transform="rotate(-90 36.0 257.6)">58.8 mm (2.31 in)</text>
+<line x1="413.2" y1="152.0" x2="445.2" y2="134.0" class="ld"/>
+<circle cx="413.2" cy="152.0" r="1.8" class="dot"/>
+<text x="449.2" y="138.0" class="lt" text-anchor="start">Ledge 2 mm wide, all round</text>
+<line x1="401.2" y1="167.6" x2="445.2" y2="180.0" class="ld"/>
+<circle cx="401.2" cy="167.6" r="1.8" class="dot"/>
+<text x="449.2" y="184.0" class="lt" text-anchor="start">Posts for board's 2 holes (Ø3.1)</text>
+<rect x="177.6" y="180.0" width="8.0" height="155.2" rx="0" class="post"/>
+<line x1="181.6" y1="215.2" x2="445.2" y2="260.0" class="ld"/>
+<circle cx="181.6" cy="215.2" r="1.8" class="dot"/>
+<text x="449.2" y="264.0" class="lt" text-anchor="start">Support rib under board's left edge</text>
+<text x="287.6" y="520.0" class="h" text-anchor="middle">FRONT VIEW (long side), with belt clip</text>
+<rect x="110.0" y="560.0" width="355.2" height="161.6" rx="6" class="o"/>
+<rect x="118.0" y="556.0" width="339.2" height="4.0" rx="0" class="part"/>
+<path d="M 251.6 560.0 A 36.0 36.0 0 0 0 323.6 560.0" class="o"/>
+<rect x="227.6" y="721.6" width="120.0" height="24.0" rx="0" class="clip"/>
+<line x1="337.6" y1="733.6" x2="479.2" y2="751.6" class="ld"/>
+<circle cx="337.6" cy="733.6" r="1.8" class="dot"/>
+<text x="483.2" y="755.6" class="lt" text-anchor="start">Belt clip (≈6 mm), screwed to back</text>
+<line x1="441.2" y1="558.0" x2="479.2" y2="540.0" class="ld"/>
+<circle cx="441.2" cy="558.0" r="1.8" class="dot"/>
+<text x="483.2" y="544.0" class="lt" text-anchor="start">Cardputer front sits 1 mm proud</text>
+<line x1="110.0" y1="560.0" x2="78.0" y2="560.0" class="e"/>
+<line x1="110.0" y1="721.6" x2="78.0" y2="721.6" class="e"/>
+<line x1="82.0" y1="560.0" x2="82.0" y2="721.6" class="d"/>
+<text x="76.0" y="640.8" class="dt" text-anchor="middle" transform="rotate(-90 76.0 640.8)">40.4 mm (1.59 in) case</text>
+<line x1="110.0" y1="560.0" x2="42.0" y2="560.0" class="e"/>
+<line x1="110.0" y1="745.6" x2="42.0" y2="745.6" class="e"/>
+<line x1="46.0" y1="560.0" x2="46.0" y2="745.6" class="d"/>
+<text x="40.0" y="652.8" class="dt" text-anchor="middle" transform="rotate(-90 40.0 652.8)">46.4 mm (1.83 in) with clip</text>
+<text x="777.6" y="520.0" class="h" text-anchor="middle">SECTION A–A (lengthwise, through the middle)</text>
+<rect x="600.0" y="560.0" width="355.2" height="161.6" rx="0" class="sec"/>
+<rect x="608.0" y="642.4" width="339.2" height="71.2" rx="0" class="void"/>
+<rect x="608.0" y="560.0" width="339.2" height="74.4" rx="0" class="void"/>
+<rect x="616.0" y="634.4" width="323.2" height="8.0" rx="0" class="void"/>
+<rect x="608.0" y="556.0" width="336.0" height="78.4" rx="0" class="part"/>
+<text x="776.0" y="600.2" class="pl" text-anchor="middle">Cardputer ADV</text>
+<rect x="705.6" y="675.2" width="240.0" height="6.4" rx="0" class="pcb"/>
+<rect x="713.6" y="646.4" width="224.0" height="28.8" rx="0" class="comp"/>
+<text x="825.6" y="664.4" class="pl" text-anchor="middle">A7670G board (terminal block removed)</text>
+<rect x="707.6" y="681.6" width="8.0" height="32.0" rx="0" class="sec"/>
+<rect x="716.0" y="693.6" width="200.0" height="20.0" rx="0" class="batt"/>
+<text x="816.0" y="707.6" class="pl" text-anchor="middle">LiPo ~1000 mAh, 50×34×5</text>
+<rect x="609.6" y="693.6" width="91.6" height="20.0" rx="0" class="boost"/>
+<text x="655.4" y="707.6" class="pl" text-anchor="middle">5 V boost</text>
+<rect x="598.0" y="692.6" width="12.0" height="18.0" rx="0" class="cut"/>
+<line x1="602.0" y1="701.6" x2="590.0" y2="787.6" class="ld"/>
+<circle cx="602.0" cy="701.6" r="1.8" class="dot"/>
+<text x="586.0" y="791.6" class="lt" text-anchor="end">USB-C charging socket</text>
+<rect x="919.2" y="681.6" width="24.0" height="32.0" rx="0" class="h2"/>
+<rect x="717.6" y="721.6" width="120.0" height="24.0" rx="0" class="clip"/>
+<line x1="955.2" y1="560.0" x2="989.2" y2="560.0" class="e"/>
+<line x1="955.2" y1="634.4" x2="989.2" y2="634.4" class="e"/>
+<line x1="985.2" y1="560.0" x2="985.2" y2="634.4" class="d"/>
+<text x="991.2" y="597.2" class="dt" text-anchor="middle" transform="rotate(-90 991.2 597.2)">18.6</text>
+<line x1="955.2" y1="634.4" x2="989.2" y2="634.4" class="e"/>
+<line x1="955.2" y1="721.6" x2="989.2" y2="721.6" class="e"/>
+<line x1="985.2" y1="634.4" x2="985.2" y2="721.6" class="d"/>
+<text x="991.2" y="678.0" class="dt" text-anchor="middle" transform="rotate(-90 991.2 678.0)">21.8</text>
+<line x1="955.2" y1="681.6" x2="1021.2" y2="681.6" class="e"/>
+<line x1="955.2" y1="721.6" x2="1021.2" y2="721.6" class="e"/>
+<line x1="1017.2" y1="681.6" x2="1017.2" y2="721.6" class="d"/>
+<text x="1023.2" y="701.6" class="dt" text-anchor="middle" transform="rotate(-90 1023.2 701.6)">10.0</text>
+<text x="1217.6" y="100.0" class="h" text-anchor="middle">LEFT END</text>
+<rect x="1100.0" y="140.0" width="235.2" height="161.6" rx="6" class="o"/>
+<rect x="1197.6" y="272.6" width="40.0" height="18.0" rx="0" class="cut"/>
+<line x1="1217.6" y1="281.6" x2="1349.2" y2="260.0" class="ld"/>
+<circle cx="1217.6" cy="281.6" r="1.8" class="dot"/>
+<text x="1353.2" y="264.0" class="lt" text-anchor="start">USB-C charging socket</text>
+<line x1="1100.0" y1="140.0" x2="1068.0" y2="140.0" class="e"/>
+<line x1="1100.0" y1="301.6" x2="1068.0" y2="301.6" class="e"/>
+<line x1="1072.0" y1="140.0" x2="1072.0" y2="301.6" class="d"/>
+<text x="1066.0" y="220.8" class="dt" text-anchor="middle" transform="rotate(-90 1066.0 220.8)">40.4 mm (1.59 in)</text>
+<line x1="1100.0" y1="301.6" x2="1100.0" y2="333.6" class="e"/>
+<line x1="1335.2" y1="301.6" x2="1335.2" y2="333.6" class="e"/>
+<line x1="1100.0" y1="329.6" x2="1335.2" y2="329.6" class="d"/>
+<text x="1217.6" y="324.6" class="dt" text-anchor="middle">58.8 mm (2.31 in)</text>
+<text x="1100.0" y="359.6" class="note" text-anchor="start">Socket center 5 mm above bottom</text>
+<text x="1217.6" y="520.0" class="h" text-anchor="middle">RIGHT END</text>
+<rect x="1100.0" y="560.0" width="235.2" height="161.6" rx="6" class="o"/>
+<rect x="1191.6" y="581.2" width="52.0" height="28.0" rx="0" class="cut"/>
+<line x1="1217.6" y1="595.2" x2="1349.2" y2="570.0" class="ld"/>
+<circle cx="1217.6" cy="595.2" r="1.8" class="dot"/>
+<text x="1353.2" y="574.0" class="lt" text-anchor="start">Cardputer USB-C</text>
+<rect x="1263.6" y="585.2" width="36.0" height="20.0" rx="0" class="cut"/>
+<line x1="1281.6" y1="595.2" x2="1349.2" y2="605.0" class="ld"/>
+<circle cx="1281.6" cy="595.2" r="1.8" class="dot"/>
+<text x="1353.2" y="609.0" class="lt" text-anchor="start">Cardputer switch</text>
+<line x1="1100.0" y1="560.0" x2="1068.0" y2="560.0" class="e"/>
+<line x1="1100.0" y1="721.6" x2="1068.0" y2="721.6" class="e"/>
+<line x1="1072.0" y1="560.0" x2="1072.0" y2="721.6" class="d"/>
+<text x="1066.0" y="640.8" class="dt" text-anchor="middle" transform="rotate(-90 1066.0 640.8)">40.4 mm (1.59 in)</text>
+<line x1="1100.0" y1="721.6" x2="1100.0" y2="753.6" class="e"/>
+<line x1="1335.2" y1="721.6" x2="1335.2" y2="753.6" class="e"/>
+<line x1="1100.0" y1="749.6" x2="1335.2" y2="749.6" class="d"/>
+<text x="1217.6" y="744.6" class="dt" text-anchor="middle">58.8 mm (2.31 in)</text>
+<text x="1100.0" y="779.6" class="note" text-anchor="start">Positions are guesses — MEASURE</text>
+<text x="70.0" y="860.0" class="h" text-anchor="start">NOTES</text>
+<text x="70.0" y="880.0" class="note" text-anchor="start">1. mm unless noted. Case 88.8 × 58.8 × 40.4 mm (3.50 × 2.31 × 1.59 in); about 1.83 in thick with the belt clip. Walls/floor 2 mm.</text>
+<text x="70.0" y="900.0" class="note" text-anchor="start">2. Modem: DFRobot Gravity A7670G (TEL0163), 60 × 52 mm, mounting holes Ø3.1 (from DFRobot's drawing). Remove its screw terminal block (tallest part) to save ~3 mm.</text>
+<text x="70.0" y="920.0" class="note" text-anchor="start">3. Battery sits under the modem board; the 5 V boost/charger sits beside it. SIM must be fitted before assembly (no outside access).</text>
+<text x="70.0" y="940.0" class="note" text-anchor="start">4. Belt clip: a store-bought pager/phone clip screwed through the floor, or a printed PETG clip. Device hangs with the keyboard facing out.</text>
+<text x="70.0" y="960.0" class="note" text-anchor="start">5. Draft: MEASURE the real parts (board heights, battery, Cardputer USB-C and switch positions) before printing.</text>
+</svg>

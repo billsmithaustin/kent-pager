@@ -118,6 +118,7 @@ An alternate pager layout built around the **M5Stack Unit CatM** (U128, SIM7080G
 - **Wiring changes:** the HAT's PWR, RI and DTR lines aren't used. The motor moves to EXT pin G5.
 - **Depends on** the Unit CatM passing the Tello desk test on LTE-M.
 - **Variant with M5Stack Unit Vibrator** (U059, 32 × 24 × 8 mm, driver built in, about 420 mA at 50% duty, 5 V): `enclosure/enclosure_catm_vib_drawings.png` and `.svg`. It replaces the coin motor and hand-built driver, sits in the front of the bay with a 3 mm clear zone for its spinning weight, and is wired to EXT 5VOUT, GND and G5. Same case size. The rail is shortened to clear it.
+  - 3D views with dimensions: `enclosure/enclosure_catm_vib_3d.png`, rendered from the OpenSCAD model `enclosure/enclosure_catm_vib.scad`. The same model can export the STL for printing once the parts are measured.
 
 ## Cardputer ADV facts and pin map
 
